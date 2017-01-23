@@ -1,0 +1,1 @@
+aws --region=ap-southeast-1 cloudformation create-stack --stack-name githubhookstack --template-url https://s3-ap-southeast-1.amazonaws.com/infra-master/src/GitHubHookCFTemplate.json --capabilities CAPABILITY_NAMED_IAM

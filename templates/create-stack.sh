@@ -1,0 +1,1 @@
+aws --region=ap-southeast-1 cloudformation create-stack --stack-name infrastack --template-url https://s3-ap-southeast-1.amazonaws.com/infra-master/InfraCFTemplateMaster.json --parameters https://s3-ap-southeast-1.amazonaws.com/infra-project/InfraTestParams.json --capabilities CAPABILITY_IAM

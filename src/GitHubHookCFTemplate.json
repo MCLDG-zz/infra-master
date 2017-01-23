@@ -1,0 +1,129 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Description": "AWS CloudFormation Template to create Lambda function responsible for handling GitHub events. Creates associated SNS topic, plus IAM roles/users required",
+  "Parameters": {
+    "LambdaFunctionBucket": {
+      "Description": "Bucket containing Lambda source code",
+      "Type": "String",
+      "Default" : "infra-master"
+    },
+    "LambdaFunctionKey": {
+      "Description": "Bucket key containing Lambda source code",
+      "Type": "String",
+      "Default" : "src/GitHubHookLambda.js.zip"
+    }
+  },
+  "Resources": {
+	"GitHubHookLambdaRole" : {
+	  "Type": "AWS::IAM::Role",
+	  "Properties": {
+	  	"RoleName": "GitHubHookLambdaRole",
+	  	"AssumeRolePolicyDocument": {
+        	"Version" : "2012-10-17",
+            "Statement": [{ "Effect": "Allow", "Principal": {"Service": ["lambda.amazonaws.com"]}, "Action": ["sts:AssumeRole"] }]
+        },
+        "Policies": [ 
+        	{
+        		"PolicyName": "GitHubHookLambdaPolicy",
+          		"PolicyDocument": {
+					"Version": "2012-10-17",
+					"Statement": [
+						{
+							"Effect": "Allow",
+							"Action": [
+								"iam:CreateRole",
+								"iam:PassRole"
+							],
+							"Resource": [
+								"arn:aws:iam::295744685835:role/infra-role"
+							]
+						},
+						{
+							"Effect": "Allow",
+							"Action": [
+								"logs:CreateLogGroup",
+								"logs:CreateLogStream",
+								"logs:PutLogEvents",
+								"logs:PutMetricFilter",
+								"logs:PutRetentionPolicy"
+							],
+							"Resource": [
+								"arn:aws:logs:*:*:*"
+							]
+						},
+						{
+						  "Effect": "Allow",
+						  "Action": [
+							"cloudformation:CreateStack"
+						  ],
+						  "Resource": [
+							"arn:aws:cloudformation:*:*:*"
+						  ]
+						}
+					  ]
+				}
+	     	} 
+	     ]
+	  }
+	},
+	"GitHubHookLambda": {
+    	"Type": "AWS::Lambda::Function",
+    	"DependsOn": [
+        	"GitHubHookLambdaRole"
+    	],
+	    "Properties": {
+			"Description" : "Lambda function for handling GitHub events",
+    	    "Code": {
+        	    "S3Bucket": { "Ref" : "LambdaFunctionBucket" },
+            	"S3Key": { "Ref" : "LambdaFunctionKey" }
+	        },
+    	    "Role": {
+        	    "Fn::GetAtt": ["GitHubHookLambdaRole", "Arn"]
+	        },
+    	    "Timeout": 10,
+        	"Handler": "export.handler",
+	        "Runtime": "nodejs4.3",
+    	    "MemorySize": 128
+    	}
+	},
+	"GitHubEvents" : {
+		"Type" : "AWS::SNS::Topic",
+		"Properties" : {
+			"DisplayName" : "GitHubEvents",
+			"Subscription" : [ {
+				"Endpoint" : { "Fn::GetAtt": ["GitHubHookLambda", "Arn"] },
+				"Protocol" : "lambda"
+			} ]
+		}
+	},
+	"SNSInvokeLambdaPermission": {
+		"Type": "AWS::Lambda::Permission",
+		"Properties": {
+			"Action": "lambda:InvokeFunction",
+			"Principal": "sns.amazonaws.com",
+			"SourceArn": { "Ref": "GitHubEvents" },
+			"FunctionName": {
+				"Fn::GetAtt": [ "GitHubHookLambda", "Arn" ]
+			}
+		}
+	},
+	"GitHubEventPublisher" : {
+		"Type" : "AWS::IAM::User",
+		"Properties" : {
+			"Path" : "/",
+			"UserName" : "GitHubEventPublisher",
+			"Policies" : [ {
+				"PolicyName" : "GitHubEventPublisherPolicy",
+				"PolicyDocument" : {
+		  			"Version": "2012-10-17",
+				  	"Statement": [ {
+						"Action": [ "sns:Publish" ],
+					  	"Resource": [ { "Ref": "GitHubEvents" } ],
+					  	"Effect": "Allow"
+					} ]
+				}
+			} ] 
+		}
+	}
+  }
+} 

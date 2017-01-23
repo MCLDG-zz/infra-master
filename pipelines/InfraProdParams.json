@@ -1,9 +1,0 @@
-{
-  "Parameters" : {
-    "BastionInstanceType" : "t2.small",
-    "BastionKeyName" : "bastion-keypair",
-    "KeyName" : "instance-keypair",
-    "NATInstanceType" : "t2.small",    
-    "SSHLocation" : "0.0.0.0/0"
-  }
-}

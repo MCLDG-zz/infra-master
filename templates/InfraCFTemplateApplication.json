@@ -1,0 +1,138 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Description": "AWS CloudFormation template to create ElasticBeanstalk Environment and deploy Application",
+  "Parameters": {
+    "BastionSecurityGroup": {
+      "Description": "BeanstalkSecurityGroup",
+      "Type": "String"
+    },
+    "BeanstalkSecurityGroup": {
+      "Description": "BeanstalkSecurityGroup",
+      "Type": "String"
+    },
+     "VPC": {
+      "Description": "VPC",
+      "Type": "String"
+    },
+    "PrivateSubnet": {
+      "Description": "PrivateSubnet",
+      "Type": "String"
+    },
+    "PublicSubnet": {
+      "Description": "PublicSubnet",
+      "Type": "String"
+    },
+    "WebServerInstanceProfile": {
+      "Description": "WebServerInstanceProfile",
+      "Type": "String"
+    },
+    "ApplicationBundleBucket": {
+      "Description": "ApplicationBundleBucket",
+      "Type": "String"
+    },
+    "ApplicationBundleKey": {
+      "Description": "ApplicationBundleKey",
+      "Type": "String"
+    },
+    "SolutionStackName": {
+      "Description": "SolutionStackName",
+      "Type": "String"
+    },
+   "KeyName": {
+      "Description": "Name of an existing EC2 KeyPair to enable SSH access to the Elastic Beanstalk hosts",
+      "Type": "AWS::EC2::KeyPair::KeyName",
+      "ConstraintDescription": "must be the name of an existing EC2 KeyPair."
+    }
+  },
+  "Resources": {
+    "SampleApplication": {
+      "Type": "AWS::ElasticBeanstalk::Application",
+      "Properties": {
+        "Description": "AWS Elastic Beanstalk Application"
+      }
+    },
+    "SampleApplicationVersion": {
+      "Type": "AWS::ElasticBeanstalk::ApplicationVersion",
+      "Properties": {
+        "Description": "Version 1.0",
+        "ApplicationName": { "Ref": "SampleApplication" },
+        "SourceBundle": {
+        	"S3Bucket": { "Ref": "ApplicationBundleBucket" },
+        	"S3Key": { "Ref": "ApplicationBundleKey" }
+        }
+      }
+    },
+    "SampleEnvironment": {
+      "Type": "AWS::ElasticBeanstalk::Environment",
+      "Properties": {
+        "ApplicationName": {
+          "Ref": "SampleApplication"
+        },
+        "Description": "AWS Elastic Beanstalk Environment running Sample Application",
+        "SolutionStackName": { "Ref" : "SolutionStackName" },
+        "VersionLabel": {
+          "Ref": "SampleApplicationVersion"
+        },
+        "OptionSettings": [
+          {
+            "Namespace": "aws:autoscaling:launchconfiguration",
+            "OptionName": "SSHSourceRestriction",
+            "Value": {
+              "Fn::Join": [
+                "",
+                [
+                  "tcp,22,22,",
+                  {
+                    "Ref": "BastionSecurityGroup"
+                  }
+                ]
+              ]
+            }
+          },
+          {
+            "Namespace": "aws:autoscaling:launchconfiguration",
+            "OptionName": "SecurityGroups",
+            "Value": {
+              "Ref": "BeanstalkSecurityGroup"
+            }
+          },
+          {
+            "Namespace": "aws:autoscaling:launchconfiguration",
+            "OptionName": "EC2KeyName",
+            "Value": {
+              "Ref": "KeyName"
+            }
+          },
+          {
+            "Namespace": "aws:ec2:vpc",
+            "OptionName": "VPCId",
+            "Value": {
+              "Ref": "VPC"
+            }
+          },
+          {
+            "Namespace": "aws:ec2:vpc",
+            "OptionName": "Subnets",
+            "Value": {
+              "Ref": "PrivateSubnet"
+            }
+          },
+          {
+            "Namespace": "aws:ec2:vpc",
+            "OptionName": "ELBSubnets",
+            "Value": {
+              "Ref": "PublicSubnet"
+            }
+          },
+          {
+            "Namespace": "aws:autoscaling:launchconfiguration",
+            "OptionName": "IamInstanceProfile",
+            "Value": {
+              "Ref": "WebServerInstanceProfile"
+            }
+          }
+        ]
+      }
+    }
+  }
+}

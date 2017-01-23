@@ -1,0 +1,27 @@
+[
+ {
+	"ParameterKey": "BastionInstanceType",
+	"ParameterValue": "t2.small",
+	"UsePreviousValue": false
+ },
+ {
+        "ParameterKey": "BastionKeyName",
+        "ParameterValue": "bastion-keypair",
+        "UsePreviousValue": false
+ },
+ {
+        "ParameterKey": "KeyName",
+        "ParameterValue": "instance-keypair",
+        "UsePreviousValue": false
+ },
+ {
+        "ParameterKey": "NATInstanceType",
+        "ParameterValue": "t2.small",
+        "UsePreviousValue": false
+ },
+ {
+        "ParameterKey": "SSHLocation",
+        "ParameterValue": "0.0.0.0/0",
+        "UsePreviousValue": false
+ }
+]

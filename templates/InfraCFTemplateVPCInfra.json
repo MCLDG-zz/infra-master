@@ -1451,122 +1451,6 @@
           "id": "1b98f3b3-6dc2-4b84-b5af-8fb8a09bd4b9"
         }
       }
-    },
-    "SampleApplication": {
-      "Type": "AWS::ElasticBeanstalk::Application",
-      "Properties": {
-        "Description": "AWS Elastic Beanstalk Python Sample Application"
-      },
-      "Metadata": {
-        "AWS::CloudFormation::Designer": {
-          "id": "51eff7c7-b228-4934-9d77-652d5176f8f1"
-        }
-      }
-    },
-    "SampleApplicationVersion": {
-      "Type": "AWS::ElasticBeanstalk::ApplicationVersion",
-      "Properties": {
-        "Description": "Version 1.0",
-        "ApplicationName": {
-          "Ref": "SampleApplication"
-        },
-        "SourceBundle": {
-          "S3Bucket": {
-            "Fn::Join": [
-              "-",
-              [
-                "elasticbeanstalk-samples",
-                {
-                  "Ref": "AWS::Region"
-                }
-              ]
-            ]
-          },
-          "S3Key": "elasticbeanstalk-sampleapp.war"
-        }
-      },
-      "Metadata": {
-        "AWS::CloudFormation::Designer": {
-          "id": "68138aae-9cb4-4628-ba4f-9614a485cd23"
-        }
-      }
-    },
-    "SampleEnvironment": {
-      "Type": "AWS::ElasticBeanstalk::Environment",
-      "Properties": {
-        "ApplicationName": {
-          "Ref": "SampleApplication"
-        },
-        "Description": "AWS Elastic Beanstalk Environment running Python Sample Application",
-        "SolutionStackName": "64bit Amazon Linux 2016.09 v2.5.0 running Tomcat 8 Java 8",
-        "VersionLabel": {
-          "Ref": "SampleApplicationVersion"
-        },
-        "OptionSettings": [
-          {
-            "Namespace": "aws:autoscaling:launchconfiguration",
-            "OptionName": "SSHSourceRestriction",
-            "Value": {
-              "Fn::Join": [
-                "",
-                [
-                  "tcp,22,22,",
-                  {
-                    "Ref": "BastionSecurityGroup"
-                  }
-                ]
-              ]
-            }
-          },
-          {
-            "Namespace": "aws:autoscaling:launchconfiguration",
-            "OptionName": "SecurityGroups",
-            "Value": {
-              "Ref": "BeanstalkSecurityGroup"
-            }
-          },
-          {
-            "Namespace": "aws:autoscaling:launchconfiguration",
-            "OptionName": "EC2KeyName",
-            "Value": {
-              "Ref": "KeyName"
-            }
-          },
-          {
-            "Namespace": "aws:ec2:vpc",
-            "OptionName": "VPCId",
-            "Value": {
-              "Ref": "VPC"
-            }
-          },
-          {
-            "Namespace": "aws:ec2:vpc",
-            "OptionName": "Subnets",
-            "Value": {
-              "Ref": "PrivateSubnet"
-            }
-          },
-          {
-            "Namespace": "aws:ec2:vpc",
-            "OptionName": "ELBSubnets",
-            "Value": {
-              "Ref": "PublicSubnet"
-            }
-          },
-          {
-            "Namespace": "aws:autoscaling:launchconfiguration",
-            "OptionName": "IamInstanceProfile",
-            "Value": {
-              "Ref": "WebServerInstanceProfile"
-            }
-          }
-        ]
-      },
-      "Metadata": {
-        "AWS::CloudFormation::Designer": {
-          "id": "8efdafd7-2ed0-470a-8e94-55456444fac5"
-        }
-      }
     }
   },
   "Outputs": {
@@ -1576,21 +1460,40 @@
         "Ref": "BastionIPAddress"
       }
     },
-    "URL": {
-      "Description": "The URL of the Elastic Beanstalk environment",
+    "BastionSecurityGroup": {
+      "Description": "Security Group for the Bastion host",
       "Value": {
-        "Fn::Join": [
-          "",
-          [
-            "http://",
-            {
-              "Fn::GetAtt": [
-                "SampleEnvironment",
-                "EndpointURL"
-              ]
-            }
-          ]
-        ]
+        "Ref": "BastionSecurityGroup"
+      }
+    },
+    "BeanstalkSecurityGroup": {
+      "Description": "Security Group for Beanstalk",
+      "Value": {
+        "Ref": "BeanstalkSecurityGroup"
+      }
+    },
+    "VPC": {
+      "Description": "VPC",
+      "Value": {
+        "Ref": "VPC"
+      }
+    },
+    "PrivateSubnet": {
+      "Description": "PrivateSubnet",
+      "Value": {
+        "Ref": "PrivateSubnet"
+      }
+    },
+    "PublicSubnet": {
+      "Description": "PublicSubnet",
+      "Value": {
+        "Ref": "PublicSubnet"
+      }
+    },
+    "WebServerInstanceProfile": {
+      "Description": "WebServerInstanceProfile",
+      "Value": {
+        "Ref": "WebServerInstanceProfile"
       }
     }
   },
@@ -1818,7 +1721,8 @@
         },
         "target": {
           "id": "09502697-ade1-4ff0-aa20-a4907114b57e"
-        }
+        },
+        "z": 2
       },
       "924039f1-a30d-4698-b169-1995d8f38366": {
         "source": {
@@ -1826,7 +1730,8 @@
         },
         "target": {
           "id": "09502697-ade1-4ff0-aa20-a4907114b57e"
-        }
+        },
+        "z": 2
       },
       "3d9f0e59-30bd-42de-b6cd-a70ebae5e03f": {
         "size": {
@@ -1933,7 +1838,8 @@
         },
         "target": {
           "id": "069fc522-faa3-4ffe-acd4-e2a9727309c8"
-        }
+        },
+        "z": 1
       },
       "0ca57efa-5036-4da8-b77e-2c254d338a4a": {
         "size": {
@@ -2082,7 +1988,8 @@
         },
         "target": {
           "id": "224f4661-604d-4843-afd4-bae1c98cd8dc"
-        }
+        },
+        "z": 2
       },
       "dea5bc83-29c4-4e52-adbd-efaf81ee631f": {
         "source": {
@@ -2090,7 +1997,8 @@
         },
         "target": {
           "id": "224f4661-604d-4843-afd4-bae1c98cd8dc"
-        }
+        },
+        "z": 2
       }
     }
   }

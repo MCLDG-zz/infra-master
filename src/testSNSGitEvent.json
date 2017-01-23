@@ -1,0 +1,188 @@
+{
+  "Records": [
+    {
+      "EventVersion": "1.0",
+      "EventSubscriptionArn": "arn:aws:sns:EXAMPLE",
+      "EventSource": "aws:sns",
+      "Sns": {
+        "SignatureVersion": "1",
+        "Timestamp": "1970-01-01T00:00:00.000Z",
+        "Signature": "EXAMPLE",
+        "SigningCertUrl": "EXAMPLE",
+        "MessageId": "95df01b4-ee98-5cb9-9903-4c221d41eb5e",
+        "Message": {
+
+  "ref": "refs/heads/master",
+  "before": "04838f1646c3c3ef081f062f7908aedecab74625",
+  "after": "2f690e641927f51acfacaad6d0d669a710996902",
+  "created": false,
+  "deleted": false,
+  "forced": false,
+  "base_ref": null,
+  "compare": "https://github.com/MCLDG/infra-project-repo/compare/04838f1646c3...2f690e641927",
+  "commits": [
+    {
+      "id": "2f690e641927f51acfacaad6d0d669a710996902",
+      "tree_id": "c192dbb226b024dc3d40d4eb18d88d96fa774c26",
+      "distinct": true,
+      "message": "updated",
+      "timestamp": "2017-01-22T19:11:42+08:00",
+      "url": "https://github.com/MCLDG/infra-project-repo/commit/2f690e641927f51acfacaad6d0d669a710996902",
+      "author": {
+        "name": "Edge",
+        "email": "edgema@c4b301d07c5d.ant.amazon.com"
+      },
+      "committer": {
+        "name": "Edge",
+        "email": "edgema@c4b301d07c5d.ant.amazon.com"
+      },
+      "added": [],
+      "removed": [],
+      "modified": [
+        "README.md",
+        "infra-config/InfraConfig.json",
+        "infra-config/InfraTestParams.json"
+      ]
+    }
+  ],
+  "head_commit": {
+    "id": "2f690e641927f51acfacaad6d0d669a710996902",
+    "tree_id": "c192dbb226b024dc3d40d4eb18d88d96fa774c26",
+    "distinct": true,
+    "message": "updated",
+    "timestamp": "2017-01-22T19:11:42+08:00",
+    "url": "https://github.com/MCLDG/infra-project-repo/commit/2f690e641927f51acfacaad6d0d669a710996902",
+    "author": {
+      "name": "Edge",
+      "email": "edgema@c4b301d07c5d.ant.amazon.com"
+    },
+    "committer": {
+      "name": "Edge",
+      "email": "edgema@c4b301d07c5d.ant.amazon.com"
+    },
+    "added": [],
+    "removed": [],
+    "modified": [
+      "README.md",
+      "infra-config/InfraConfig.json",
+      "infra-config/InfraTestParams.json"
+    ]
+  },
+  "repository": {
+    "id": 79427580,
+    "name": "infra-project-repo",
+    "full_name": "MCLDG/infra-project-repo",
+    "owner": {
+      "name": "MCLDG",
+      "email": "edge.ka@gmail.com"
+    },
+    "private": false,
+    "html_url": "https://github.com/MCLDG/infra-project-repo",
+    "description": null,
+    "fork": false,
+    "url": "https://github.com/MCLDG/infra-project-repo",
+    "forks_url": "https://api.github.com/repos/MCLDG/infra-project-repo/forks",
+    "keys_url": "https://api.github.com/repos/MCLDG/infra-project-repo/keys{/key_id}",
+    "collaborators_url": "https://api.github.com/repos/MCLDG/infra-project-repo/collaborators{/collaborator}",
+    "teams_url": "https://api.github.com/repos/MCLDG/infra-project-repo/teams",
+    "hooks_url": "https://api.github.com/repos/MCLDG/infra-project-repo/hooks",
+    "issue_events_url": "https://api.github.com/repos/MCLDG/infra-project-repo/issues/events{/number}",
+    "events_url": "https://api.github.com/repos/MCLDG/infra-project-repo/events",
+    "assignees_url": "https://api.github.com/repos/MCLDG/infra-project-repo/assignees{/user}",
+    "branches_url": "https://api.github.com/repos/MCLDG/infra-project-repo/branches{/branch}",
+    "tags_url": "https://api.github.com/repos/MCLDG/infra-project-repo/tags",
+    "blobs_url": "https://api.github.com/repos/MCLDG/infra-project-repo/git/blobs{/sha}",
+    "git_tags_url": "https://api.github.com/repos/MCLDG/infra-project-repo/git/tags{/sha}",
+    "git_refs_url": "https://api.github.com/repos/MCLDG/infra-project-repo/git/refs{/sha}",
+    "trees_url": "https://api.github.com/repos/MCLDG/infra-project-repo/git/trees{/sha}",
+    "statuses_url": "https://api.github.com/repos/MCLDG/infra-project-repo/statuses/{sha}",
+    "languages_url": "https://api.github.com/repos/MCLDG/infra-project-repo/languages",
+    "stargazers_url": "https://api.github.com/repos/MCLDG/infra-project-repo/stargazers",
+    "contributors_url": "https://api.github.com/repos/MCLDG/infra-project-repo/contributors",
+    "subscribers_url": "https://api.github.com/repos/MCLDG/infra-project-repo/subscribers",
+    "subscription_url": "https://api.github.com/repos/MCLDG/infra-project-repo/subscription",
+    "commits_url": "https://api.github.com/repos/MCLDG/infra-project-repo/commits{/sha}",
+    "git_commits_url": "https://api.github.com/repos/MCLDG/infra-project-repo/git/commits{/sha}",
+    "comments_url": "https://api.github.com/repos/MCLDG/infra-project-repo/comments{/number}",
+    "issue_comment_url": "https://api.github.com/repos/MCLDG/infra-project-repo/issues/comments{/number}",
+    "contents_url": "https://api.github.com/repos/MCLDG/infra-project-repo/contents/{+path}",
+    "compare_url": "https://api.github.com/repos/MCLDG/infra-project-repo/compare/{base}...{head}",
+    "merges_url": "https://api.github.com/repos/MCLDG/infra-project-repo/merges",
+    "archive_url": "https://api.github.com/repos/MCLDG/infra-project-repo/{archive_format}{/ref}",
+    "downloads_url": "https://api.github.com/repos/MCLDG/infra-project-repo/downloads",
+    "issues_url": "https://api.github.com/repos/MCLDG/infra-project-repo/issues{/number}",
+    "pulls_url": "https://api.github.com/repos/MCLDG/infra-project-repo/pulls{/number}",
+    "milestones_url": "https://api.github.com/repos/MCLDG/infra-project-repo/milestones{/number}",
+    "notifications_url": "https://api.github.com/repos/MCLDG/infra-project-repo/notifications{?since,all,participating}",
+    "labels_url": "https://api.github.com/repos/MCLDG/infra-project-repo/labels{/name}",
+    "releases_url": "https://api.github.com/repos/MCLDG/infra-project-repo/releases{/id}",
+    "deployments_url": "https://api.github.com/repos/MCLDG/infra-project-repo/deployments",
+    "created_at": 1484811088,
+    "updated_at": "2017-01-20T02:14:55Z",
+    "pushed_at": 1485083509,
+    "git_url": "git://github.com/MCLDG/infra-project-repo.git",
+    "ssh_url": "git@github.com:MCLDG/infra-project-repo.git",
+    "clone_url": "https://github.com/MCLDG/infra-project-repo.git",
+    "svn_url": "https://github.com/MCLDG/infra-project-repo",
+    "homepage": null,
+    "size": 13,
+    "stargazers_count": 0,
+    "watchers_count": 0,
+    "language": "Java",
+    "has_issues": true,
+    "has_downloads": true,
+    "has_wiki": true,
+    "has_pages": false,
+    "forks_count": 0,
+    "mirror_url": null,
+    "open_issues_count": 0,
+    "forks": 0,
+    "open_issues": 0,
+    "watchers": 0,
+    "default_branch": "master",
+    "stargazers": 0,
+    "master_branch": "master"
+  },
+  "pusher": {
+    "name": "MCLDG",
+    "email": "edge.ka@gmail.com"
+  },
+  "sender": {
+    "login": "MCLDG",
+    "id": 12388122,
+    "avatar_url": "https://avatars.githubusercontent.com/u/12388122?v=3",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/MCLDG",
+    "html_url": "https://github.com/MCLDG",
+    "followers_url": "https://api.github.com/users/MCLDG/followers",
+    "following_url": "https://api.github.com/users/MCLDG/following{/other_user}",
+    "gists_url": "https://api.github.com/users/MCLDG/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/MCLDG/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/MCLDG/subscriptions",
+    "organizations_url": "https://api.github.com/users/MCLDG/orgs",
+    "repos_url": "https://api.github.com/users/MCLDG/repos",
+    "events_url": "https://api.github.com/users/MCLDG/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/MCLDG/received_events",
+    "type": "User",
+    "site_admin": false
+  }
+
+        },
+        "MessageAttributes": {
+          "Test": {
+            "Type": "String",
+            "Value": "TestString"
+          },
+          "TestBinary": {
+            "Type": "Binary",
+            "Value": "TestBinary"
+          }
+        },
+        "Type": "Notification",
+        "UnsubscribeUrl": "EXAMPLE",
+        "TopicArn": "arn:aws:sns:EXAMPLE",
+        "Subject": "TestInvoke"
+      }
+    }
+  ]
+}
