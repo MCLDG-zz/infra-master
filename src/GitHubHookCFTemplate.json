@@ -90,7 +90,7 @@
         	    "Fn::GetAtt": ["GitHubHookLambdaRole", "Arn"]
 	        },
     	    "Timeout": 10,
-        	"Handler": "export.handler",
+        	"Handler": "GitHubHookLambda.handler",
 	        "Runtime": "nodejs4.3",
     	    "MemorySize": 128
     	}
