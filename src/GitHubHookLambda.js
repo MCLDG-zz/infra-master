@@ -149,7 +149,7 @@ exports.handler = (event, context, callback) => {
                             Capabilities: ['CAPABILITY_IAM'],
                             OnFailure: 'ROLLBACK',
                             Parameters: parsedData,
-                            RoleARN: "arn:aws:iam::295744685835:role/infra-role",
+                            RoleARN: "arn:aws:iam::295744685835:role/InfraMasterRole",
                             TemplateURL: templateS3URL,
                             TimeoutInMinutes: 60
                         };

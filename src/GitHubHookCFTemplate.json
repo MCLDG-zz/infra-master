@@ -20,7 +20,7 @@
 	  	"RoleName": "InfraMasterRole",
 	  	"AssumeRolePolicyDocument": {
         	"Version" : "2012-10-17",
-            "Statement": [{ "Effect": "Allow", "Principal": {"Service": ["lambda.amazonaws.com"]}, "Action": ["sts:AssumeRole"] }]
+            "Statement": [{ "Effect": "Allow", "Principal": {"Service": ["lambda.amazonaws.com","cloudformation.amazonaws.com"]}, "Action": ["sts:AssumeRole"] }]
         },
         "Policies": [ 
         	{
@@ -128,7 +128,7 @@
 								"iam:PassRole"
 							],
 							"Resource": [
-								"arn:aws:iam::295744685835:role/infra-role"
+								"arn:aws:iam::295744685835:role/InfraMasterRole"
 							]
 						},
 						{
