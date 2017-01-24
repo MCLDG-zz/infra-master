@@ -14,6 +14,99 @@
     }
   },
   "Resources": {
+	"InfraMasterRole" : {
+	  "Type": "AWS::IAM::Role",
+	  "Properties": {
+	  	"RoleName": "InfraMasterRole",
+	  	"AssumeRolePolicyDocument": {
+        	"Version" : "2012-10-17",
+            "Statement": [{ "Effect": "Allow", "Principal": {"Service": ["lambda.amazonaws.com"]}, "Action": ["sts:AssumeRole"] }]
+        },
+        "Policies": [ 
+        	{
+        		"PolicyName": "GitHubHookLambdaPolicy",
+          		"PolicyDocument": {
+					"Version": "2012-10-17",
+					"Statement": [
+						{
+							"Effect": "Allow",
+							"Action": [
+								"ec2:*"
+							],
+							"Resource": [
+								"arn:aws:ec2:::*"
+							]
+						},
+						{
+							"Effect": "Allow",
+							"Action": [
+								"elasticbeanstalk:*"
+							],
+							"Resource": [
+								"arn:aws:elasticbeanstalk::::*/*"
+							]
+						},
+						{
+							"Effect": "Allow",
+							"Action": [
+								"iam:*"
+							],
+							"Resource": [
+								"arn:aws:iam:::*"
+							]
+						},
+						{
+							"Effect": "Allow",
+							"Action": [
+								"s3:*"
+							],
+							"Resource": [
+								"arn:aws:s3:::*"
+							]
+						},
+						{
+							"Effect": "Allow",
+							"Action": [
+								"cloudformation:*"
+							],
+							"Resource": [
+								"arn:aws:cloudformation:ap-southeast-1:295744685835:stack/infra-master-stack/*"
+							]
+						},
+						{
+							"Effect": "Allow",
+							"Action": [
+								"elasticloadbalancing:*"
+							],
+							"Resource": [
+								"arn:aws:elasticloadbalancing:::*/*"
+							]
+						},
+						{
+							"Effect": "Allow",
+							"Action": [
+								"autoscaling:*"
+							],
+							"Resource": [
+								"*"
+							]
+						},
+						{
+							"Effect": "Allow",
+							"Action": [
+								"cloudwatch:*"
+							],
+							"Resource": [
+								"*"
+							]
+						}
+					]
+				}
+
+	     	} 
+	     ]
+	  }
+	},
 	"GitHubHookLambdaRole" : {
 	  "Type": "AWS::IAM::Role",
 	  "Properties": {
