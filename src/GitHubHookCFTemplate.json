@@ -27,88 +27,88 @@
         		"PolicyName": "GitHubHookLambdaPolicy",
           		"PolicyDocument": {
 					"Version": "2012-10-17",
-					"Statement": [
-						{
-							"Effect": "Allow",
-							"Action": [
-								"ec2:*"
-							],
-							"Resource": [
-								"arn:aws:ec2:::*"
-							]
-						},
-						{
-							"Effect": "Allow",
-							"Action": [
-								"elasticbeanstalk:*"
-							],
-							"Resource": [
-								"arn:aws:elasticbeanstalk::::*/*"
-							]
-						},
-						{
-							"Effect": "Allow",
-							"Action": [
-								"iam:*"
-							],
-							"Resource": [
-								"arn:aws:iam:::*"
-							]
-						},
-						{
-							"Effect": "Allow",
-							"Action": [
-								"s3:*"
-							],
-							"Resource": [
-								"arn:aws:s3:::*"
-							]
-						},
-						{
-							"Effect": "Allow",
-							"Action": [
-								"cloudformation:*"
-							],
-							"Resource": [
-								"arn:aws:cloudformation:ap-southeast-1:295744685835:stack/infra-master-stack/*"
-							]
-						},
-						{
-							"Effect": "Allow",
-							"Action": [
-								"elasticloadbalancing:*"
-							],
-							"Resource": [
-								"arn:aws:elasticloadbalancing:::*/*"
-							]
-						},
-						{
-							"Effect": "Allow",
-							"Action": [
-								"autoscaling:*"
-							],
-							"Resource": [
-								"*"
-							]
-						},
-						{
-							"Effect": "Allow",
-							"Action": [
-								"cloudwatch:*"
-							],
-							"Resource": [
-								"*"
-							]
-						}
-					]
-				}
-
+					"Statement": [	
+							{
+								"Action": [
+									"ec2:*"
+								],
+								"Resource": [
+									"*"
+								],
+								"Effect": "Allow"
+							},
+							{
+								"Action": [
+									"elasticbeanstalk:*"
+								],
+								"Resource": [
+									"*"
+								],
+								"Effect": "Allow"
+							},
+							{
+								"Action": [
+									"iam:*"
+								],
+								"Resource": [
+									"*"
+								],
+								"Effect": "Allow"
+							},
+							{
+								"Action": [
+									"s3:*"
+								],
+								"Resource": [
+									"*"
+								],
+								"Effect": "Allow"
+							},
+							{
+								"Action": [
+									"cloudformation:*"
+								],
+								"Resource": [
+									"*"
+								],
+								"Effect": "Allow"
+							},
+							{
+								"Action": [
+									"elasticloadbalancing:*"
+								],
+								"Resource": [
+									"*"
+								],
+								"Effect": "Allow"
+							},
+							{
+								"Action": [
+									"autoscaling:*"
+								],
+								"Resource": [
+									"*"
+								],
+								"Effect": "Allow"
+							},
+							{
+								"Action": [
+									"cloudwatch:*"
+								],
+								"Resource": [
+									"*"
+								],
+								"Effect": "Allow"
+							}
+						]
+					}
 	     	} 
 	     ]
 	  }
 	},
 	"GitHubHookLambdaRole" : {
 	  "Type": "AWS::IAM::Role",
+	  "DependsOn": "InfraMasterRole",
 	  "Properties": {
 	  	"RoleName": "GitHubHookLambdaRole",
 	  	"AssumeRolePolicyDocument": {
@@ -127,8 +127,8 @@
 								"iam:CreateRole",
 								"iam:PassRole"
 							],
-							"Resource": [
-								"arn:aws:iam::295744685835:role/InfraMasterRole"
+							"Resource": [ 
+								{ "Fn::GetAtt": ["InfraMasterRole", "Arn"] }
 							]
 						},
 						{
