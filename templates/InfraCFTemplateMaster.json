@@ -148,12 +148,12 @@
     "TomcatApplicationBundleBucket": {
       "Description": "Name of application to deploy to Elastic Beanstalk. By default this will be a sample application that exists within the region sample S3 folder",
       "Type": "String",
-      "Default" : "elasticbeanstalk-samples-eu-west-1"
+      "Default" : "elasticbeanstalk-samples-ap-southeast-1"
     },
     "DotNetApplicationBundleBucket": {
       "Description": "Name of application to deploy to Elastic Beanstalk. By default this will be a sample application that exists within the region sample S3 folder",
       "Type": "String",
-      "Default" : "elasticbeanstalk-samples-eu-west-1"
+      "Default" : "elasticbeanstalk-samples-ap-southeast-1"
     },
     "TomcatApplicationBundleKey": {
       "Description": "Name of application to deploy to Elastic Beanstalk. By default this will be a sample application that exists within the region sample S3 folder",

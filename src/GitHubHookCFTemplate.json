@@ -59,6 +59,15 @@
 						  "Resource": [
 							"arn:aws:cloudformation:*:*:*"
 						  ]
+						},
+						{
+						  "Effect": "Allow",
+						  "Action": [
+							"cloudformation:CreateStack"
+						  ],
+						  "Resource": [
+							"arn:aws:cloudformation:*:*:*"
+						  ]
 						}
 					  ]
 				}

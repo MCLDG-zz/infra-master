@@ -5,11 +5,19 @@ var AWS = require('aws-sdk');
 console.log('Loading function');
 
 exports.handler = (event, context, callback) => {
-    //console.log('Received event:', JSON.stringify(event, null, 2));
-    const message = event.Records[0].Sns.Message;
-    console.log('From SNS:', message);
-    var cloudformation = new AWS.CloudFormation();
-
+    const payload = event.Records[0].Sns.Message;
+    console.log('From SNS:', payload);
+    //During testing I had issues where test JSON messages sent via the console
+    //were treated as valid JSON, but genuine JSON messages from Git were seen as
+    //Strings. So here I try and convert to JSON, and ignore if payload is already JSON
+    var message = "";
+    try {
+        message = JSON.parse(payload);
+        console.log('From SNS after convert to JSON:', message);
+    } catch (e) {
+        message = payload;
+    }
+    
     //Inspect the Git event to see if InfraConfig.json was committed
     var commitsadded = message.commits[0].added;
     var commitsmodified = message.commits[0].modified;
@@ -107,6 +115,7 @@ exports.handler = (event, context, callback) => {
         //
         //Note that we expect the parameter file to be in the same folder as the 
         //InfraConfig.json file
+        console.log("buildCFStack. Params file is: ", gitPath + "/" + paramsFile);
         if (paramsFile) {
             var fs = require('fs');
             var https = require('https');
@@ -123,10 +132,13 @@ exports.handler = (event, context, callback) => {
     
             var request = https.get(options, function(response) {
     	        var contents = "";
+    	        console.log("getting contents of file: ", gitPath + "/" + paramsFile);
     			
     			response.on('data', (d) => {
       				contents += d;
-      			});
+                    console.log("buildCFStack. Contents: ", d);
+                });
+
       			response.on('end', () => {
     	    		try {
         	  			let parsedData = JSON.parse(contents);
@@ -136,17 +148,18 @@ exports.handler = (event, context, callback) => {
                             StackName: stackName,
                             Capabilities: ['CAPABILITY_IAM'],
                             OnFailure: 'ROLLBACK',
-                            Parameters: contents,
+                            Parameters: parsedData,
                             RoleARN: "arn:aws:iam::295744685835:role/infra-role",
                             TemplateURL: templateS3URL,
                             TimeoutInMinutes: 60
                         };
                       	console.log("CF create stack params: ", params);
                     
-                        //cloudformation.createStack(params, function(err, data) {
-                        //  if (err) console.log(err, err.stack); // an error occurred
-                        //  else     console.log(data);           // successful response
-                        //});
+					    var cloudformation = new AWS.CloudFormation();
+                        cloudformation.createStack(params, function(err, data) {
+                          if (err) console.log(err, err.stack); // an error occurred
+                          else     console.log(data);           // successful response
+                        });
         
     	    		} catch (e) {
           				console.log(e.message);
